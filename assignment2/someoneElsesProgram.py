@@ -7,6 +7,7 @@ class shape:
 x = True
 
 def writeShape(shape, filename):
+    '''added by me'''
     try:
         f = open(filename, "w")
         f.write(f"{shape.n},{shape.sideL}")
@@ -15,6 +16,7 @@ def writeShape(shape, filename):
         return 1
 
 def readShape(filename):
+    '''added by me'''
     try:
         f = open(filename, "r")
         shapeTemplate = f.read()
@@ -31,9 +33,9 @@ while x:
         sideL = float(input('input the side length of your shape '))
         shape1 = shape(n,sideL)
         print('your shape\'s area is ',shape1.area)
-        writeShape(shape1, "shape1.txt")
-        shape2 = readShape("shape.txt")
-        print("shape2 area is ", shape2.area)
+        writeShape(shape1, "shape1.txt")        #added by me
+        shape2 = readShape("shape.txt")         #added by me
+        print("shape2 area is ", shape2.area)   #added by me
         if bool(input('would you like to continue? (True/False) ')):
             break
     except:
