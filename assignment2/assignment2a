@@ -18,4 +18,4 @@ first week's project code:
 	running that exact same code twice in both the if on line 102 and the else on line 110
 
     design tests that would show your program working correctly (positive tests and negative tests):
-	refer to debugassignment1.py
+	I am going to have a test function that creates a player object and confirms that it has the correct attribute values.	

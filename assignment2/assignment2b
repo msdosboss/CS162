@@ -1,0 +1,16 @@
+identify sections of their code that you think could or should be made into methods or functions:
+	This is a pretty small program that does not have very much repeat code. So I do not think there is any code I should put in a
+	function or method 
+
+what tests would use to show that their programming is working correctly (or would even break their code:
+	I could add a test to check if the area calculations are correct.
+
+
+If you have these installed, then when you run pydocstyle and pycodestyle on their code, what warnings and errors do you get?
+
+    What do these messages mean?:
+	the only message this program generates when running through pydocstyle was a warning about a lack of doc string for 
+	fuctions/methods
+
+    In your opinion are the programmer’s style differences from the PEP standards acceptable?:
+	I personally think that this is fine because the functions are very small and easy to understand.
