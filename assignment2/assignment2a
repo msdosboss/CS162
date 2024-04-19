@@ -1,0 +1,21 @@
+Discuss with classmates how you would do the following (and be sure to document your thoughts and submit it with the assignment) to your 
+first week's project code:
+
+    how do you think you would add file reading and writing functionality to your first week's project in this class:
+	For assignement1.py I could write the attributes of a player object into a json like file that would hold the value of each of the
+	attributes. I could have a read method that would fill a player object with information from a file. I could also have a write
+	function that would take a player object and writes its attributes to a json like file.
+
+    how do you think the try and except clauses of Python work (based on your current understanding or a quick Internet search) and what the 	FileNotFoundError class is:
+	try and except are used when it is possible a command you want to run might cause an error, but you don't want the program to crash
+	because of it. For example it could be used if you asked a user for a file to read and they might enter in a file name that does
+	not exist.
+
+    identify sections of your code that you could use to create functions or methods out of:
+	I don't think there is much repeat code in assignment1.py asside from the maybe the creation of the "godItems" dicationary which 
+	happens twice once on line 103 and the other on line 111. Although if I were to refactor that section I would just turn the 
+	"godItems" into an array. In an earlier revsion of this code I didn't have the "addItemFromGods" function which meant that I was 
+	running that exact same code twice in both the if on line 102 and the else on line 110
+
+    design tests that would show your program working correctly (positive tests and negative tests):
+	refer to debugassignment1.py
