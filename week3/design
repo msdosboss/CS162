@@ -1,0 +1,16 @@
+1) The program I want to design is a automatic grocery list sorter. This program would take an input of grocery items and then output a sort list of grocery items. a sorted list would have each of the items sorted by the row they are in.
+	a) There would be an graphical object that would display the available items within the database. There would be a graphical object that would be interacted with by the user to enter there items. There would be a grapical object that would display the output of the program. There would be a graphical object that will display the items the users has already entered. There would be a an object to repersent an entry within the database (int rowNumber string itemName). There will also be an object that repersents the database itself.
+	
+	b)refer img0.jpg (I was sort of unsure what the difference was between questions b and e so I just used the same image for both let me know if I am missing something for either of the questions)
+	
+	c)refer img1.jpg. as well as these answers which are assoitated with the table in the image
+		1)The user entry will interact with the available items objects to confirm that the users input is a valid item within the database.
+		2)The available items object will be made up of entry objects.
+		3)The available items object will be populated by the contents of the database that are currently available.
+		4)The already entered items will be populated by the user entries.
+		5)The output is going to take the input(already entered items) then sort them and display them.
+		6)The output will consist of entry objects.
+	
+	d)I could make a test to ensure that when a user inputs an entry it gets added to the already entered items object correctly. I could create a test to ensure that when the available items object pull from the database it gets every item and enters them correctly. I could write a test that ensure when the user enters an item thats in the available items object it will be properly converted in to its corresponding user entry object.	
+	
+	e)refer img0.jpg (I was sort of unsure what the difference was between questions b and e so I just used the same image for both let me know if I am missing something for either of the questions)
