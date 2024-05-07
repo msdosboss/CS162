@@ -1,6 +1,7 @@
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QLabel, QLineEdit, QVBoxLayout, QGridLayout
 import pytest
+import time
 
 defaultLabelText = "orca"
 
@@ -80,10 +81,32 @@ def addNumberListWidgets(window, n):
 	container = QWidget()
 	container.setLayout(layout)
 	window.setCentralWidget(container)
-	#labelWidgets[11].setText("orca")
 	return labelWidgets
 	
+def highlightSelectedNumber(labelWidgets):
+	inputText = labelWidgets[0].text()
+	for labelWidget in labelWidgets[2:]:
+		labelWidget.setStyleSheet("")
 	
+	for labelWidget in labelWidgets[2:]:
+		labelWidget.setStyleSheet("background-color: cyan")
+		app.processEvents()		#this is considerd bad practice I should have worked my function into the processEvent loop, but instead I am just forcing it to process all events right now https://www.pythonguis.com/faq/real-time-change-of-widgets
+		time.sleep(1)
+		if labelWidget.text() == inputText:
+			break
+		labelWidget.setStyleSheet("")
+
+def testHighlightSelectedNumber():				#test the all possible inputs
+	for testText in range(100):
+		for labelWidget in labelWidgets[2:]:
+			labelWidget.setStyleSheet("background-color: cyan")
+			if labelWidget.text() == str(testText):
+				break
+			labelWidget.setStyleSheet("")
+		assert labelWidgets[testText + 2].styleSheet() == "background-color: cyan"
+
+
+
 #testDictionaryEntryList(entryList)
 
 #printAvailableItems(entryList)
@@ -99,6 +122,8 @@ window = MainWindow("Number searcher", "iterate")
 #window.button.clicked.connect(lambda: printNumList(window, numList))
 
 labelWidgets = addNumberListWidgets(window, 100)
+
+labelWidgets[1].clicked.connect(lambda: highlightSelectedNumber(labelWidgets))
 
 window.show()
 

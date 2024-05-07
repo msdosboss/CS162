@@ -1,0 +1,2 @@
+I think there is really only one compent that could be tested here which is the highlightSelectedNumbers fuction. A test for the function would ensure that the correct box is being highlighted
+based on input.

@@ -1,0 +1,3 @@
+This program is pretty simple. It first creates a grid based GUI that is 11x10. I use the first row for the search bar and the button making the bar have a 7 colspan and the button have a 3 colspan.
+I then fill up the rest of the grid with "labels" that contain numbers from 0-100. Now that I have this dataset I just search through it and then updating the color of the square as I go through them until
+I reach the desired value and stop on that value and keep it highlighted.  
