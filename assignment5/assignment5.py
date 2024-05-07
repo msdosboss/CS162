@@ -1,5 +1,5 @@
 from PyQt6.QtCore import QSize, Qt
-from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QLabel, QLineEdit, QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QLabel, QLineEdit, QVBoxLayout, QGridLayout
 import pytest
 
 defaultLabelText = "orca"
@@ -10,8 +10,8 @@ class MainWindow(QMainWindow):
 		
 		self.buttonIsChecked = True
 
-		self.label = QLabel()
-		self.label.setText(defaultLabelText)
+		#self.label = QLabel()
+		#self.label.setText(defaultLabelText)
 		self.input = QLineEdit()
 		#self.input.textChanged.connect(self.label.setText)
 		
@@ -28,13 +28,10 @@ class MainWindow(QMainWindow):
 
 		layout.addWidget(self.input)
 		layout.addWidget(self.button)
-		layout.addWidget(self.label)
+		#layout.addWidget(self.label)
 
-		container = QWidget()
-		container.setLayout(layout)
-
+		
 		self.setFixedSize(QSize(x, y))
-		self.setCentralWidget(container)	
 	
 	def theButtonWasClicked(self):
 		item = self.input.text()
@@ -61,13 +58,32 @@ def printNumList(window, numList):
 		return
 		
 	
-	
 	for x in range(len(numList)):
 		if int(numList[x]) == int(currentNumber):
 			window.label.setText(str(numList[x+1]))
 
-		
-
+def addNumberListWidgets(window, n):
+	labelWidgets = []
+	layout = QGridLayout()
+	textField = QLineEdit()
+	button = QPushButton("Search")
+	labelWidgets.append(textField)
+	labelWidgets.append(button)
+	layout.addWidget(textField, 0, 0, 1, 7)
+	layout.addWidget(button, 0, 7, 1, 3)
+	
+	for x in range(n):
+		label = QLabel()
+		label.setText(str(x))
+		labelWidgets.append(label)
+		layout.addWidget(label, (x // 10) + 1, x % 10)
+	container = QWidget()
+	container.setLayout(layout)
+	window.setCentralWidget(container)
+	#labelWidgets[11].setText("orca")
+	return labelWidgets
+	
+	
 #testDictionaryEntryList(entryList)
 
 #printAvailableItems(entryList)
@@ -76,11 +92,13 @@ app = QApplication([])
 
 #window = QWidget()
 #window = QPushButton("Click Me")
-window = MainWindow("Number iterator", "iterate")
+window = MainWindow("Number searcher", "iterate")
 
-numList = [1, 2, 3, 5, 4]
+#numList = [1, 2, 3, 5, 4]
 
-window.button.clicked.connect(lambda: printNumList(window, numList))
+#window.button.clicked.connect(lambda: printNumList(window, numList))
+
+labelWidgets = addNumberListWidgets(window, 100)
 
 window.show()
 
