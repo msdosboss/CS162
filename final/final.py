@@ -3,11 +3,22 @@ from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QMainWindow, QLa
 import pytest
 import time
 import random
+import fileio
 
 defaultLabelText = "orca"
 
-grocList = [['fortnite gift card', 'banana', 'apple'], ['copy of minecraft', 'milk', 'Ninja Funko Pop'], ['ASDFGHJKL:', 'orca', '3rd item']]
-
+#grocList = [['fortnite gift card', 'banana', 'apple'], ['copy of minecraft', 'milk', 'Ninja Funko Pop'], ['ASDFGHJKL:', 'orca', '3rd item']]
+grocList = [    #list created by chatgpt
+    ['snacks', 'cereal', 'bread'],
+    ['dairy', 'eggs', 'cheese'],
+    ['frozen foods', 'ice cream', 'pizza'],
+    ['produce', 'lettuce', 'tomatoes'],
+    ['beverages', 'soda', 'juice'],
+    ['canned goods', 'soup', 'beans'],
+    ['meat', 'chicken', 'beef'],
+    ['condiments', 'ketchup', 'mayonnaise'],
+    ['household', 'paper towels', 'dish soap']
+]
 
 def listToDict(grocList):
 	grocDict = {}
@@ -19,21 +30,47 @@ def listToDict(grocList):
 
 grocDict = listToDict(grocList)
 
+def listToTwoDList(enteredList, grocDict):
+	sortedList = []
+	previousAisle = 0
+	tempList = []
+	for item in enteredList:
+		currentAisle = grocDict[item]
+		if currentAisle == previousAisle:
+			tempList.append(item)
+		else:
+			if previousAisle != 0:
+				sortedList.append(tempList)
+			while currentAisle > previousAisle + 1:
+				sortedList.append([])
+				previousAisle += 1
+			tempList = []
+			tempList.append(item)
+		previousAisle = currentAisle
+    
+	sortedList.append(tempList)
+	return sortedList
+            
+
 class SecondWindow(QWidget):
 	def __init__(self, x = 1000, y = 1000):
 		super().__init__()
 		
-		self.setFixedSize(QSize(x, y))
+		#self.setFixedSize(QSize(x, y))
 		
 		self.layout = QGridLayout()
 		
 		self.labelWidgets = []
 		
 		self.input = QLineEdit()
+		
+		self.sortedList = []
 
 		self.buttonAdd = QPushButton("Add Item")
 
 		self.buttonSort = QPushButton("Sort")
+
+		self.buttonWrite = QPushButton("Write To File")
 
 		self.layout.addWidget(self.input, 0, 0, 1, 4)
 
@@ -48,6 +85,8 @@ class SecondWindow(QWidget):
 		self.buttonAdd.clicked.connect(self.verifyEntry)
 		self.buttonSort.clicked.connect(self.sortList)
 
+		self.buttonWrite.clicked.connect(self.fileWrite)
+		
 		self.setGUI()
 
 
@@ -79,7 +118,11 @@ class SecondWindow(QWidget):
 
 
 		else:
+			self.input.setText("")
 			self.setGUI()
+
+	def fileWrite(self):
+		fileio.outputListToFile(self.sortedList)
 
 	def addEntry(self, val, posy, posx, leny = 1, lenx = 1):
 		label = QLabel()
@@ -119,22 +162,25 @@ class SecondWindow(QWidget):
 			enteredList.append(item.text())
 		enteredList = self.mergeSort(enteredList)	#this mergeSort is made for sorting a list of ints. So I use the dict value that corresponds with the item (an int) to sort the list
 		self.clearLayout()
+		self.layout.addWidget(self.buttonWrite, 0, 0, 1, 10)
 		previousAisle = 0
 		n = 0
 		for item in enteredList:
 			currentAisle = grocDict[item]
 			if previousAisle == currentAisle:
-				self.addEntry(item, currentAisle, n)
+				self.addEntry(item, currentAisle + 1, n)
 				n += 1
 			else:
 				n = 0
-				self.addEntry(f"Aisle {currentAisle}", grocDict[item], n)
+				self.addEntry(f"Aisle {currentAisle}", currentAisle + 1, n)
 				n += 1
-				self.addEntry(item, currentAisle, n)
+				self.addEntry(item, currentAisle + 1, n)
 				n += 1
 				
 			previousAisle = currentAisle
 		self.setGUI()
+		sortedList = listToTwoDList(enteredList, grocDict)
+		self.sortedList = sortedList
 
 	
 	def mergeSortHelper(self, list1, list2):
@@ -184,7 +230,7 @@ class SecondWindow(QWidget):
 
 
 class MainWindow(QMainWindow):
-	def __init__(self, name = "My App", buttonText = "Click Me!", x = 1000, y = 1000):
+	def __init__(self, name = "My App", buttonText = "Click Me!", x = 500, y = 500):
 		super().__init__()
 		
 		self.buttonIsChecked = True
